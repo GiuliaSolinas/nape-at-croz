@@ -1,0 +1,63 @@
+apiVersion: 1.0.0
+kind: AssuranceReport
+metadata:
+  app-type: Java Spring Boot Application
+  utc-start: '1732280138120'
+  code-owner: Bill Bensing
+subject:
+  urn: nrn:procedure:nape-tutorials/tutorial-1:new-employee/empid-10387493
+  id: '10387493'
+procedure:
+  repository: https://github.com/GiuliaSolinas/nape-catalog.git
+  directory: nape-tutorials/tutorial-1/simple-sdlc-process/continuous-integration
+summary:
+  activity_count: 3
+  action_count: 4
+  actions_run: 3
+  pass: 0
+  fail: 3
+  inconclusive: 0
+  outcome: inconclusive
+activity:
+- name: peer-review
+  action:
+  - name: at-least-two-reviewers
+    outcome: error
+    reason: 'An error occurred during evaluation: ''requested_reviewers'''
+    test_file:
+      file: activity/peer-review/at_least_two_reviewers.py
+      signature: SHA256[73469e983ee5f578a1b432f824f998d59c321c041bb20a802471d501b9bd07e1]
+    evidence_file:
+      file: evidence/peer-review/review_tool_report.json
+      signature: SHA256[6ab3563be4aaf8919ff0cbb025ce65bc3d10e5dff225046ee54c773e65382234]
+  - name: requester-not-a-reviewer
+    outcome: fail
+    reason: The review request fails because the requestor 'jane.doe@example.com' is also listed as a reviewer.
+    test_file:
+      file: activity/peer-review/requester_not_a_reviewer.py
+      signature: SHA256[506e37853972f73c9233e01cf971b5006dfe384c0f8f1f5a9e496720faf2bf15]
+    evidence_file:
+      file: evidence/peer-review/review_tool_report.json
+      signature: SHA256[6ab3563be4aaf8919ff0cbb025ce65bc3d10e5dff225046ee54c773e65382234]
+- name: vulnerabilty-and-weaknesses
+  action:
+  - name: no-high-cvee
+    outcome: fail
+    reason: CVE NO HIGH Needs Implementation
+    test_file:
+      file: activity/vulnerabilty-and-weaknesses/cve_no_high.py
+      signature: SHA256[056466e2f89ad417640a444c589b28ee2fc044bf856139d45d785b3290264376]
+    evidence_file:
+      file: evidence/vulnerabilty-and-weaknesses/cve_scan_results.xml
+      signature: SHA256[523af79f77f9de269fd7b392495cf4ead89c53b131f50545859eead231920dc5]
+- name: app-testing
+  action:
+  - name: unit-test-gte-80
+    outcome: fail
+    reason: Unit Test Greater than 80% Needs Implementation
+    test_file:
+      file: activity/app-testing/unit_test_gt_80.py
+      signature: SHA256[608e776258c4c62404af753eec8869a5fcb4d3160646619e755f85f9ac8847ff]
+    evidence_file:
+      file: evidence/app-testing/unit_test_results.txt
+      signature: SHA256[cdd6e1f1799231ea5fb7ebd0270e9d35e3852e8ea39ac2b3742016a39450cc68]

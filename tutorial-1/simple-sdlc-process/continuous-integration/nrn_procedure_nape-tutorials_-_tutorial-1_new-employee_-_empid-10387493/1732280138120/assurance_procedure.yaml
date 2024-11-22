@@ -1,0 +1,41 @@
+apiVersion: 1.0.0
+kind: AssuranceProcedure
+procedure:
+  nrn: "nrn:procedure:software-procedures:continuous-integration"
+  short: "Rust CI Assurnace Procedure"
+  description: |
+    "This is the complete procedure required to integrate a source code change for a rust application 
+    back into the trunk, or main branch, of the source code repository."
+activity:
+  - name: peer-review
+    short: "Peer Review"
+    description: "This activity verifies that all actions require for a successfull peer review were completed."
+    action:
+      - name: at-least-two-reviewers
+        short: "Two (2) Reviewer Approval"
+        description: "There are at least two (2) peer reviews who approved the merge request."
+        test: "activity/peer-review/at_least_two_reviewers.py"
+        evidence: "evidence/peer-review/review_tool_report.json"
+      - name: requester-not-a-reviewer
+        short: "Requester is not Approver"
+        description: "The person who initiated the merge request is not one of the people who approved the merge request."
+        test: "activity/peer-review/requester_not_a_reviewer.py"
+        evidence: "evidence/peer-review/review_tool_report.json"
+  - name: vulnerabilty-and-weaknesses
+    short: "Common Vulnerabilyt & Code Weakness"
+    description: "This activity verifies that the proper controls for CVE and CWEs were applied during the CI process."
+    action:
+      - name: no-high-cvee
+        short: "0 High CVE"
+        description: "There are 0 CVEs with the rating of 'high'."
+        test: "activity/vulnerabilty-and-weaknesses/cve_no_high.py"
+        evidence: "evidence/vulnerabilty-and-weaknesses/cve_scan_results.xml"
+  - name: app-testing
+    short: "Application Testing"
+    description: "This activity verifies that all of the proper testing control were either passed, or met the minimum expected criteria."
+    action:
+      - name: unit-test-gte-80
+        short: "Unit Test > 80%"
+        description: "At least 80% of the unit test passed"
+        test: "activity/app-testing/unit_test_gt_80.py"
+        evidence: "evidence/app-testing/unit_test_results.txt"

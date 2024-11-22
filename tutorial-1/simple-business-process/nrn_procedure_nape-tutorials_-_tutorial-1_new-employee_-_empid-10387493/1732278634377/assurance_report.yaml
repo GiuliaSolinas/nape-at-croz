@@ -1,0 +1,43 @@
+apiVersion: 1.0.0
+kind: AssuranceReport
+metadata:
+  utc-start: '1732278634377'
+  employee-name: Bill Bensing
+  job-role: Software Engineer
+subject:
+  urn: nrn:procedure:nape-tutorials/tutorial-1:new-employee/empid-10387493
+  id: '10387493'
+procedure:
+  repository: https://github.com/nape-not-another-policy-engine/nape-catalog.git
+  directory: nape-tutorials/tutorial-1/simple-business-process/new-employee
+summary:
+  activity_count: 2
+  action_count: 2
+  actions_run: 2
+  pass: 2
+  fail: 0
+  inconclusive: 0
+  outcome: pass
+activity:
+- name: criminal-history
+  action:
+  - name: verify-no-criminal-history
+    outcome: pass
+    reason: 'The evidence contains the expected statement: ''No criminal records found''.'
+    test_file:
+      file: activity/criminal-history/verify-no-criminal-history.py
+      signature: SHA256[d8303f82201bdf10567c952daafeb6a92f664c30974422d368e2514b5a07a179]
+    evidence_file:
+      file: evidence/criminal-history/background-check.txt
+      signature: SHA256[bf5653036253909c2d2142a6cd5217e667421a7289bd0eb91234faa23dff7eac]
+- name: document-signatures
+  action:
+  - name: signed-compensation-agreement
+    outcome: pass
+    reason: Compensation Agreement is signed.
+    test_file:
+      file: activity/document-signatures/signed-compensation-agreement.py
+      signature: SHA256[a57c594a58d4019944f775566c3a9559895dac00430a7abbd3ee5dc4c4463fb8]
+    evidence_file:
+      file: evidence/document-signatures/hrms-employee-onboarding.json
+      signature: SHA256[c3507e83d0902aa538e58f2b2970d79ce6068686e44d0a1cbce9f2013d5826ff]
